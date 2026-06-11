@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>A. Wahab - Senior Flutter & iOS Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0a0a0f;
+    --bg2: #111118;
+    --bg3: #1a1a24;
+    --card: #16161f;
+    --border: rgba(255,255,255,0.08);
+    --border2: rgba(255,255,255,0.14);
+    --text: #f0f0f5;
+    --text2: #9090a8;
+    --text3: #5a5a70;
+    --accent: #7c6af0;
+    --accent2: #a78bfa;
+    --accent3: #4f46e5;
+    --teal: #2dd4bf;
+    --teal2: #0d9488;
+    --pink: #f472b6;
+    --amber: #fbbf24;
+    --green: #34d399;
+    --radius: 12px;
+    --radius-sm: 8px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ─── Scrollbar ─── */
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--accent3); border-radius: 10px; }
+
+  /* ─── Marquee ─── */
+  .marquee-wrap {
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 10px 0;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .marquee-inner {
+    display: inline-block;
+    animation: marquee 28s linear infinite;
+  }
+  .marquee-inner span {
+    display: inline-block;
+    padding: 0 24px;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    color: var(--text2);
+    text-transform: uppercase;
+  }
+  .marquee-inner span::before {
+    content: '◆';
+    margin-right: 24px;
+    color: var(--accent);
+    font-size: 8px;
+    vertical-align: 2px;
+  }
+  @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+  /* ─── Nav ─── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 40px;
+    height: 64px;
+    background: rgba(10,10,15,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text);
+    text-decoration: none;
+    letter-spacing: -0.02em;
+  }
+  .nav-logo span { color: var(--accent2); }
+  .nav-links { display: flex; gap: 32px; }
+  .nav-links a {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text2);
+    text-decoration: none;
+    letter-spacing: 0.03em;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--text); }
+  .nav-cta {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--accent2);
+    border: 1px solid rgba(124,106,240,0.4);
+    padding: 7px 18px;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .nav-cta:hover { background: rgba(124,106,240,0.12); border-color: var(--accent2); }
+
+  /* ─── Hero ─── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 100px 40px 60px;
+    position: relative;
+    text-align: center;
+    overflow: hidden;
+  }
+  .hero-glow {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 400px;
+    background: radial-gradient(ellipse, rgba(124,106,240,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-avatar-wrap {
+    position: relative;
+    margin-bottom: 28px;
+  }
+  .hero-avatar-ring {
+    width: 114px;
+    height: 114px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent), var(--teal));
+    padding: 2px;
+    display: inline-block;
+  }
+  .hero-avatar {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    background: var(--bg3);
+  }
+  .hero-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(52,211,153,0.1);
+    border: 1px solid rgba(52,211,153,0.25);
+    color: var(--green);
+    font-size: 12px;
+    font-weight: 500;
+    padding: 5px 14px;
+    border-radius: 100px;
+    margin-bottom: 20px;
+    letter-spacing: 0.03em;
+  }
+  .hero-status::before {
+    content: '';
+    width: 7px;
+    height: 7px;
+    background: var(--green);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.85); }
+  }
+  .hero h1 {
+    font-size: clamp(32px, 5vw, 56px);
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    line-height: 1.1;
+    margin-bottom: 12px;
+    background: linear-gradient(135deg, #f0f0f5 40%, #9090a8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero-subtitle {
+    font-size: clamp(14px, 2vw, 18px);
+    color: var(--text2);
+    margin-bottom: 16px;
+    font-weight: 400;
+  }
+  .hero-tagline {
+    font-size: 14px;
+    color: var(--text3);
+    margin-bottom: 36px;
+    font-style: italic;
+  }
+  .hero-links {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 48px;
+  }
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--accent);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 11px 24px;
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    transition: background 0.2s, transform 0.1s;
+  }
+  .btn-primary:hover { background: var(--accent2); transform: translateY(-1px); }
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    color: var(--text2);
+    font-size: 14px;
+    font-weight: 500;
+    padding: 10px 22px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border2);
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s;
+  }
+  .btn-ghost:hover { background: var(--bg3); color: var(--text); }
+  .hero-meta {
+    display: flex;
+    gap: 32px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .hero-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 13px;
+    color: var(--text2);
+  }
+  .hero-meta-item svg { color: var(--accent2); }
+
+  /* ─── Stats bar ─── */
+  .stats-bar {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .stat-item {
+    background: var(--bg2);
+    padding: 28px 24px;
+    text-align: center;
+  }
+  .stat-num {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    color: var(--text);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .stat-num span { color: var(--accent2); }
+  .stat-label {
+    font-size: 12px;
+    color: var(--text3);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  /* ─── Sections ─── */
+  section {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 80px 40px;
+  }
+  .section-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent2);
+    margin-bottom: 12px;
+  }
+  .section-label::before {
+    content: '';
+    display: inline-block;
+    width: 20px;
+    height: 1px;
+    background: var(--accent2);
+  }
+  h2.section-title {
+    font-size: clamp(24px, 3vw, 36px);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    margin-bottom: 40px;
+    color: var(--text);
+  }
+
+  /* ─── About ─── */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: start;
+  }
+  .about-text p {
+    color: var(--text2);
+    margin-bottom: 16px;
+    line-height: 1.8;
+  }
+  .about-text strong { color: var(--text); font-weight: 600; }
+  .about-contact {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px;
+  }
+  .contact-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+  }
+  .contact-item:last-child { border-bottom: none; }
+  .contact-icon {
+    width: 32px;
+    height: 32px;
+    background: rgba(124,106,240,0.12);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent2);
+    flex-shrink: 0;
+  }
+  .contact-label { font-size: 11px; color: var(--text3); margin-bottom: 2px; }
+  .contact-val { color: var(--text2); }
+  .contact-val a { color: var(--accent2); text-decoration: none; }
+
+  /* ─── Experience ─── */
+  .exp-list { display: flex; flex-direction: column; gap: 0; }
+  .exp-item {
+    position: relative;
+    padding-left: 32px;
+    padding-bottom: 40px;
+  }
+  .exp-item::before {
+    content: '';
+    position: absolute;
+    left: 7px;
+    top: 14px;
+    bottom: 0;
+    width: 1px;
+    background: var(--border2);
+  }
+  .exp-item:last-child::before { display: none; }
+  .exp-dot {
+    position: absolute;
+    left: 0;
+    top: 6px;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 3px solid var(--bg);
+    box-shadow: 0 0 0 2px var(--accent3);
+  }
+  .exp-company { font-size: 11px; color: var(--accent2); font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 4px; }
+  .exp-role { font-size: 17px; font-weight: 600; color: var(--text); margin-bottom: 4px; letter-spacing: -0.02em; }
+  .exp-period {
+    font-size: 12px;
+    color: var(--text3);
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 14px;
+  }
+  .exp-period .badge {
+    background: rgba(52,211,153,0.1);
+    color: var(--green);
+    border: 1px solid rgba(52,211,153,0.2);
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 100px;
+  }
+  .exp-bullets { list-style: none; }
+  .exp-bullets li {
+    font-size: 13.5px;
+    color: var(--text2);
+    padding: 5px 0;
+    padding-left: 16px;
+    position: relative;
+    line-height: 1.65;
+  }
+  .exp-bullets li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-size: 11px;
+  }
+
+  /* ─── Projects ─── */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 16px;
+  }
+  .project-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    transition: border-color 0.2s, transform 0.2s;
+    display: flex;
+    flex-direction: column;
+  }
+  .project-card:hover {
+    border-color: var(--border2);
+    transform: translateY(-2px);
+  }
+  .project-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: rgba(124,106,240,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 14px;
+    font-size: 18px;
+  }
+  .project-tag {
+    font-size: 11px;
+    color: var(--accent2);
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .project-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 8px;
+    letter-spacing: -0.01em;
+  }
+  .project-desc {
+    font-size: 13px;
+    color: var(--text2);
+    line-height: 1.65;
+    flex: 1;
+    margin-bottom: 18px;
+  }
+  .project-links {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .proj-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text2);
+    border: 1px solid var(--border);
+    padding: 5px 12px;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .proj-link:hover { color: var(--accent2); border-color: rgba(124,106,240,0.4); }
+
+  /* ─── Skills ─── */
+  .skills-wrap { display: flex; flex-direction: column; gap: 32px; }
+  .skill-group-title {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text3);
+    margin-bottom: 14px;
+  }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+  .skill-tag {
+    font-family: 'Fira Code', monospace;
+    font-size: 12.5px;
+    color: var(--text2);
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    padding: 6px 14px;
+    border-radius: 6px;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .skill-tag:hover { border-color: var(--accent); color: var(--accent2); }
+
+  /* ─── Education ─── */
+  .edu-list { display: flex; flex-direction: column; gap: 16px; }
+  .edu-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 22px 24px;
+    display: flex;
+    gap: 18px;
+    align-items: flex-start;
+    transition: border-color 0.2s;
+  }
+  .edu-card:hover { border-color: var(--border2); }
+  .edu-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    background: rgba(45,212,191,0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--teal);
+    flex-shrink: 0;
+    font-size: 20px;
+  }
+  .edu-degree { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 3px; letter-spacing: -0.01em; }
+  .edu-inst { font-size: 13px; color: var(--text2); margin-bottom: 3px; }
+  .edu-year { font-size: 12px; color: var(--text3); }
+
+  /* ─── Footer ─── */
+  footer {
+    border-top: 1px solid var(--border);
+    background: var(--bg2);
+    padding: 48px 40px;
+    text-align: center;
+  }
+  .footer-cta {
+    font-size: clamp(20px, 3vw, 30px);
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.03em;
+    margin-bottom: 10px;
+  }
+  .footer-sub {
+    font-size: 14px;
+    color: var(--text3);
+    margin-bottom: 28px;
+  }
+  .footer-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 40px; }
+  .footer-copy {
+    font-size: 12px;
+    color: var(--text3);
+  }
+  .footer-copy a { color: var(--text2); text-decoration: none; }
+
+  /* ─── Divider ─── */
+  .section-divider {
+    height: 1px;
+    background: var(--border);
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  /* ─── Responsive ─── */
+  @media (max-width: 700px) {
+    nav { padding: 0 20px; }
+    .nav-links { display: none; }
+    section { padding: 60px 20px; }
+    .about-grid { grid-template-columns: 1fr; }
+    .hero { padding: 100px 24px 48px; }
+    .hero-meta { flex-direction: column; gap: 12px; align-items: center; }
+    footer { padding: 40px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">A. <span>Wahab</span></a>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#experience">Experience</a>
+    <a href="#projects">Projects</a>
+    <a href="#skills">Skills</a>
+    <a href="#education">Education</a>
+  </div>
+  <a href="mailto:awahabreja1@gmail.com" class="nav-cta">Hire Me</a>
+</nav>
+
+<!-- MARQUEE -->
+<div style="margin-top:64px;" class="marquee-wrap">
+  <div class="marquee-inner">
+    <span>Flutter</span><span>Swift</span><span>iOS</span><span>Android</span><span>WebRTC</span>
+    <span>Stripe</span><span>Firebase</span><span>AI Integration</span><span>GitHub</span>
+    <span>Flutter</span><span>Swift</span><span>iOS</span><span>Android</span><span>WebRTC</span>
+    <span>Stripe</span><span>Firebase</span><span>AI Integration</span><span>GitHub</span>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-avatar-wrap">
+    <div class="hero-avatar-ring">
+      <img class="hero-avatar" src="https://wahabrej.github.io/Majid.jpg" alt="A. Wahab" onerror="this.style.display='none'" />
+    </div>
+  </div>
+  <div class="hero-status">Available for Remote &amp; Onsite Roles</div>
+  <h1>A. Wahab</h1>
+  <p class="hero-subtitle">Senior Flutter &amp; iOS Engineer &nbsp;·&nbsp; Swift &nbsp;·&nbsp; Kotlin</p>
+  <p class="hero-tagline">Crafting high-performance, pixel-perfect mobile experiences</p>
+  <div class="hero-links">
+    <a href="https://github.com/wahabrej" target="_blank" rel="noopener" class="btn-ghost">
+      <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.1.1 1.7 1.2 1.7 1.2 1 1.7 2.6 1.2 3.2.9.1-.7.4-1.2.7-1.5-2.5-.3-5.2-1.3-5.2-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 5.9 18.3 6.2 18.3 6.2c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.2 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A11.52 11.52 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg>
+      GitHub
+    </a>
+    <a href="https://www.linkedin.com/in/mohammad-wahab-539b5a226/" target="_blank" rel="noopener" class="btn-ghost">
+      <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.95v5.66H9.34V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zm1.78 13.02H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>
+      LinkedIn
+    </a>
+    <a href="mailto:awahabreja1@gmail.com" class="btn-primary">
+      <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      Contact Me
+    </a>
+  </div>
+  <div class="hero-meta">
+    <div class="hero-meta-item">
+      <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      Dhaka, Bangladesh
+    </div>
+    <div class="hero-meta-item">
+      <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.38 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.82a16 16 0 0 0 6.29 6.29l.95-.95a2 2 0 0 1 2.1-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      +880 1788 426128
+    </div>
+    <div class="hero-meta-item">
+      <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+      3+ Years Experience
+    </div>
+  </div>
+</div>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stat-item">
+    <div class="stat-num">3<span>+</span></div>
+    <div class="stat-label">Years Experience</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">7<span>+</span></div>
+    <div class="stat-label">Apps Launched</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">20<span>%</span></div>
+    <div class="stat-label">Smaller App Size</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">30<span>%</span></div>
+    <div class="stat-label">Faster Cold Start</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">100<span>%</span></div>
+    <div class="stat-label">Transaction Success</div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label">About Me</div>
+  <h2 class="section-title">Building apps people love</h2>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>Senior Flutter &amp; iOS (Swift) Developer with <strong>3+ years</strong> of commercial experience building production-grade mobile applications.</p>
+      <p>Successfully launched <strong>7+ apps</strong> on the App Store and Google Play Store. Expert in real-time features like <strong>WebRTC video calling</strong>, payment systems (Stripe, Apple Pay, Google Pay), AI integrations, and performance optimization.</p>
+      <p>Passionate about creating clean, scalable, and delightful user experiences using modern architecture. <strong>Immediately available</strong> for remote or onsite Flutter / iOS roles.</p>
+    </div>
+    <div class="about-contact">
+      <div class="contact-item">
+        <div class="contact-icon">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <div>
+          <div class="contact-label">Location</div>
+          <div class="contact-val">Dhaka, Bangladesh</div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </div>
+        <div>
+          <div class="contact-label">Email</div>
+          <div class="contact-val"><a href="mailto:awahabreja1@gmail.com">awahabreja1@gmail.com</a></div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.38 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.82a16 16 0 0 0 6.29 6.29l.95-.95a2 2 0 0 1 2.1-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        </div>
+        <div>
+          <div class="contact-label">Phone</div>
+          <div class="contact-val">+880 1788 426128</div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">
+          <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.1.1 1.7 1.2 1.7 1.2 1 1.7 2.6 1.2 3.2.9.1-.7.4-1.2.7-1.5-2.5-.3-5.2-1.3-5.2-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 5.9 18.3 6.2 18.3 6.2c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.2 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A11.52 11.52 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg>
+        </div>
+        <div>
+          <div class="contact-label">GitHub</div>
+          <div class="contact-val"><a href="https://github.com/wahabrej" target="_blank">wahabrej</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-label">Experience</div>
+  <h2 class="section-title">Professional journey</h2>
+  <div class="exp-list">
+
+    <div class="exp-item">
+      <div class="exp-dot"></div>
+      <div class="exp-company">Softvench · Dhaka, Bangladesh</div>
+      <div class="exp-role">Senior Flutter &amp; Swift Developer</div>
+      <div class="exp-period">January 2024 – Present <span class="badge">Current</span></div>
+      <ul class="exp-bullets">
+        <li>Designed and developed enterprise-grade Flutter &amp; native iOS applications using Clean Architecture.</li>
+        <li>Implemented low-latency WebRTC 1:1 &amp; group video calling with background support.</li>
+        <li>Integrated Stripe, Apple Pay, and Google Pay with 100% transaction success rate.</li>
+        <li>Optimized app size by ~20% and cold start time by ~30% through advanced techniques.</li>
+        <li>Managed full deployment lifecycle on App Store and Google Play.</li>
+      </ul>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-dot" style="background: var(--teal2); box-shadow: 0 0 0 2px var(--teal2);"></div>
+      <div class="exp-company">United Group (Orange Solution Ltd) · Dhaka</div>
+      <div class="exp-role">Flutter Developer (Intern)</div>
+      <div class="exp-period">August 2023 – January 2024</div>
+      <ul class="exp-bullets">
+        <li>Developed scalable Flutter apps using Provider state management.</li>
+        <li>Improved performance by 30% and reduced app size by 20%.</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-label">Projects</div>
+  <h2 class="section-title">Selected production apps</h2>
+  <div class="projects-grid">
+
+    <div class="project-card">
+      <div class="project-icon">🧘</div>
+      <div class="project-tag">Android · AI</div>
+      <div class="project-name">Ayni Wellness</div>
+      <div class="project-desc">AI-powered spiritual wellness platform with personalized mindfulness practices from 40+ global modalities including meditation, sound healing, and yoga.</div>
+      <div class="project-links">
+        <a href="https://play.google.com/store/apps/details?id=com.ayniwellness.ayni_wellness" target="_blank" class="proj-link">
+          <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          Google Play
+        </a>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-icon">👔</div>
+      <div class="project-tag">iOS &amp; Android · Enterprise</div>
+      <div class="project-name">Employee Management App</div>
+      <div class="project-desc">Enterprise solution for attendance tracking, workflow management, and employee operations.</div>
+      <div class="project-links">
+        <a href="https://apps.apple.com/us/app/tr-and-project/id6752683218" target="_blank" class="proj-link">
+          <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          App Store
+        </a>
+        <a href="https://play.google.com/store/apps/details?id=com.cdcg.trandproject" target="_blank" class="proj-link">
+          <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          Play Store
+        </a>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-icon">🔧</div>
+      <div class="project-tag">iOS · Real-time</div>
+      <div class="project-name">Service Job Assignment</div>
+      <div class="project-desc">Real-time job dispatching and progress tracking platform for field service workers.</div>
+      <div class="project-links">
+        <a href="https://apps.apple.com/us/app/artneidich-app/id6747304613" target="_blank" class="proj-link">
+          <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          App Store
+        </a>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-icon">🛒</div>
+      <div class="project-tag">Android · Marketplace</div>
+      <div class="project-name">Vecimarket</div>
+      <div class="project-desc">Local community marketplace connecting buyers and sellers within residential buildings.</div>
+      <div class="project-links">
+        <a href="https://play.google.com/store/apps/details?id=com.vecimarket.app" target="_blank" class="proj-link">
+          <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          Google Play
+        </a>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-icon">⏱️</div>
+      <div class="project-tag">Android &amp; iOS · Game</div>
+      <div class="project-name">Panic Attack Game Timer</div>
+      <div class="project-desc">Engaging real-time interactive game timer with smooth animations and performance optimization.</div>
+      <div class="project-links">
+        <a href="https://play.google.com/store/apps/details?id=com.bbs.panic_attack" target="_blank" class="proj-link">
+          <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          Android
+        </a>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-icon">🌿</div>
+      <div class="project-tag">Android · Services</div>
+      <div class="project-name">Lawn Lemur Service App</div>
+      <div class="project-desc">Service booking platform connecting homeowners with lawn care professionals.</div>
+      <div class="project-links">
+        <a href="https://play.google.com/store/apps/details?id=com.adamlyttle.mowbius" target="_blank" class="proj-link">
+          <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          Google Play
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label">Tech Stack</div>
+  <h2 class="section-title">Tools &amp; technologies</h2>
+  <div class="skills-wrap">
+    <div>
+      <div class="skill-group-title">Mobile Development</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Flutter</span>
+        <span class="skill-tag">Dart</span>
+        <span class="skill-tag">Swift</span>
+        <span class="skill-tag">SwiftUI</span>
+        <span class="skill-tag">UIKit</span>
+        <span class="skill-tag">Kotlin</span>
+      </div>
+    </div>
+    <div>
+      <div class="skill-group-title">Real-time &amp; AI</div>
+      <div class="skill-tags">
+        <span class="skill-tag">WebRTC</span>
+        <span class="skill-tag">Firebase</span>
+        <span class="skill-tag">OpenAI / Gemini</span>
+        <span class="skill-tag">Google ML Kit</span>
+      </div>
+    </div>
+    <div>
+      <div class="skill-group-title">Payments &amp; Features</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Stripe</span>
+        <span class="skill-tag">Apple Pay</span>
+        <span class="skill-tag">Google Pay</span>
+        <span class="skill-tag">NFC</span>
+        <span class="skill-tag">Deep Linking</span>
+        <span class="skill-tag">In-App Purchases</span>
+      </div>
+    </div>
+    <div>
+      <div class="skill-group-title">Architecture &amp; Tools</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Clean Architecture</span>
+        <span class="skill-tag">Riverpod</span>
+        <span class="skill-tag">Provider</span>
+        <span class="skill-tag">MVVM</span>
+        <span class="skill-tag">Fastlane</span>
+        <span class="skill-tag">Git / GitHub</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-label">Education</div>
+  <h2 class="section-title">Academic background</h2>
+  <div class="edu-list">
+    <div class="edu-card">
+      <div class="edu-icon">🎓</div>
+      <div>
+        <div class="edu-degree">Bachelor of Science in Computer Science &amp; Engineering</div>
+        <div class="edu-inst">United International University, Dhaka</div>
+        <div class="edu-year">2019 – 2023</div>
+      </div>
+    </div>
+    <div class="edu-card">
+      <div class="edu-icon">📘</div>
+      <div>
+        <div class="edu-degree">Higher Secondary Certificate (HSC) – Science</div>
+        <div class="edu-inst">Shahid A.H.M Kamaruzzaman Govt. College, Rajshahi</div>
+        <div class="edu-year">2017 – 2019</div>
+      </div>
+    </div>
+    <div class="edu-card">
+      <div class="edu-icon">📗</div>
+      <div>
+        <div class="edu-degree">Secondary School Certificate (SSC)</div>
+        <div class="edu-inst">Tentulia D.B High School, Naogaon</div>
+        <div class="edu-year">2017</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-cta">Let's build something exceptional</div>
+  <div class="footer-sub">Open to remote Flutter &amp; iOS opportunities worldwide.</div>
+  <div class="footer-btns">
+    <a href="mailto:awahabreja1@gmail.com" class="btn-primary">
+      <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      awahabreja1@gmail.com
+    </a>
+    <a href="https://github.com/wahabrej" target="_blank" rel="noopener" class="btn-ghost">GitHub</a>
+    <a href="https://www.linkedin.com/in/mohammad-wahab-539b5a226/" target="_blank" rel="noopener" class="btn-ghost">LinkedIn</a>
+  </div>
+  <div class="footer-copy">© 2025 A. Wahab · Built with ❤️</div>
+</footer>
+
+</body>
+</html>
